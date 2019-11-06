@@ -1,0 +1,10 @@
+{
+  "name": "monty_hall",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Amy Shackles <amyshackles@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
