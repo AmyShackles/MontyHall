@@ -48,7 +48,7 @@ class MontyHall {
 function main() {
   let wins = 0;
   let losses = 0;
-  for (let i = 0; i < 1000000; i++) {
+  for (let i = 0; i < 100000; i++) {
     const guess = Math.floor(Math.random() * 3) + 1;
     const mh = new MontyHall(guess);
     const result = mh.start();
