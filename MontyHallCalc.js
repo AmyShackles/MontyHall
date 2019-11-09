@@ -52,7 +52,8 @@ function main() {
     const guess = Math.floor(Math.random() * 3) + 1;
     const mh = new MontyHall(guess);
     const result = mh.start();
-    const montyOpens = mh.montyDoor;
+    const montyOpens = mh.mstatus;
+    ontyDoor;
     const prizeDoor = mh.prizeDoor;
     const news = !!result ? "YOU WON!" : "...you lost";
     const turnResult = `You guessed door #${guess}, Monty opened door #${montyOpens}.  You picked another door!  And ${news}!  The prize door was door #${prizeDoor}\n`;
