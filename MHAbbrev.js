@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 function montyHall(guess) {
   const doors = [1, 2, 3];
   const prizeDoor = Math.floor(Math.random() * 3) + 1;
@@ -9,11 +11,8 @@ function montyHall(guess) {
     montyDoor = doors.find(door => door !== guess && door !== prizeDoor);
   }
   const doorChange = doors.find(door => door !== montyDoor && door !== guess);
-  if (doorChange === prizeDoor) {
-    return true;
-  } else {
-    return false;
-  }
+  const result = doorChange === prizeDoor;
+  return result;
 }
 
 function randomDoor(doors) {
@@ -33,9 +32,14 @@ function main() {
       losses++;
     }
   }
-  console.log(
-    `You always choose the other door, resulting in ${wins} wins and ${losses} losses`
-  );
+  try {
+    fs.appendFileSync(
+      "montyHall.txt",
+      `\nChanging doors after Monty revealed one resulted in ${wins} wins and ${losses} losses`
+    );
+  } catch (err) {
+    console.error(`Error in the finale!: ${err}`);
+  }
   return;
 }
 
