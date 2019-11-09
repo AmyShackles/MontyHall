@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 class MontyHall {
   constructor(contestantGuess) {
     this.contestantGuess = Number(contestantGuess);
@@ -46,19 +48,32 @@ class MontyHall {
 function main() {
   let wins = 0;
   let losses = 0;
-  for (let i = 0; i < 1000000000; i++) {
-    let guess = Math.floor(Math.random() * 3) + 1;
+  for (let i = 0; i < 1000000; i++) {
+    const guess = Math.floor(Math.random() * 3) + 1;
     const mh = new MontyHall(guess);
-    let result = mh.start();
+    const result = mh.start();
+    const montyOpens = mh.montyDoor;
+    const prizeDoor = mh.prizeDoor;
+    const news = !!result ? "YOU WON!" : "...you lost";
+    const turnResult = `You guessed door #${guess}, Monty opened door #${montyOpens}.  You picked another door!  And ${news}!  The prize door was door #${prizeDoor}\n`;
+    try {
+      fs.appendFileSync("mh.md", turnResult);
+    } catch (err) {
+      console.error(`Error in append on turn ${i}: ${err}`);
+    }
     if (!!result) {
       wins++;
     } else {
       losses++;
     }
   }
-  console.log(
-    `You always choose the other door, resulting in ${wins} wins and ${losses} losses`
-  );
+
+  const message = `\nYou always chose the other door, resulting in ${wins} wins and ${losses} losses`;
+  try {
+    fs.appendFileSync("mh.md", message);
+  } catch (err) {
+    console.error(`Error in appending final message: ${err}`);
+  }
   return;
 }
 
